@@ -1,0 +1,41 @@
+package edu.icet.shopsphere.service.impl;
+
+import edu.icet.shopsphere.dto.LoginRequest;
+import edu.icet.shopsphere.dto.RegisterRequest;
+import edu.icet.shopsphere.dto.UserResponse;
+import edu.icet.shopsphere.entity.Role;
+import edu.icet.shopsphere.entity.User;
+import edu.icet.shopsphere.repository.UserRepository;
+import edu.icet.shopsphere.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class AuthServiceImpl implements AuthService {
+    private final UserRepository userRepository;
+    @Override
+    public UserResponse register(RegisterRequest request) {
+        User user = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .role(Role.CUSTOMER)
+                .build();
+
+        User savedUser = userRepository.save(user);
+        return UserResponse.builder()
+                .id(savedUser.getId())
+                .firstName(savedUser.getFirstName())
+                .lastName(savedUser.getLastName())
+                .email(savedUser.getEmail())
+                .role(savedUser.getRole())
+                .build();
+    }
+
+    @Override
+    public String login(LoginRequest request) {
+        return "";
+    }
+}
