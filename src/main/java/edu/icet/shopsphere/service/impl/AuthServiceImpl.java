@@ -9,12 +9,16 @@ import edu.icet.shopsphere.exception.EmailAlreadyExistsException;
 import edu.icet.shopsphere.repository.UserRepository;
 import edu.icet.shopsphere.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
+
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public UserResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -24,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
                     .firstName(request.getFirstName())
                     .lastName(request.getLastName())
                     .email(request.getEmail())
-                    .password(request.getPassword())
+                    .password(passwordEncoder.encode(request.getPassword())) // Hash the password before saving
                     .role(Role.CUSTOMER)
                     .build();
 
