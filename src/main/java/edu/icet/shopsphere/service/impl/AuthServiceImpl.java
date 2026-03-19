@@ -5,6 +5,7 @@ import edu.icet.shopsphere.dto.RegisterRequest;
 import edu.icet.shopsphere.dto.UserResponse;
 import edu.icet.shopsphere.entity.Role;
 import edu.icet.shopsphere.entity.User;
+import edu.icet.shopsphere.exception.EmailAlreadyExistsException;
 import edu.icet.shopsphere.repository.UserRepository;
 import edu.icet.shopsphere.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new EmailAlreadyExistsException("Email already exists");
         } else {
             User user = User.builder()
                     .firstName(request.getFirstName())
