@@ -16,22 +16,26 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     @Override
     public UserResponse register(RegisterRequest request) {
-        User user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .password(request.getPassword())
-                .role(Role.CUSTOMER)
-                .build();
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        } else {
+            User user = User.builder()
+                    .firstName(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .email(request.getEmail())
+                    .password(request.getPassword())
+                    .role(Role.CUSTOMER)
+                    .build();
 
-        User savedUser = userRepository.save(user);
-        return UserResponse.builder()
-                .id(savedUser.getId())
-                .firstName(savedUser.getFirstName())
-                .lastName(savedUser.getLastName())
-                .email(savedUser.getEmail())
-                .role(savedUser.getRole())
-                .build();
+            User savedUser = userRepository.save(user);
+            return UserResponse.builder()
+                    .id(savedUser.getId())
+                    .firstName(savedUser.getFirstName())
+                    .lastName(savedUser.getLastName())
+                    .email(savedUser.getEmail())
+                    .role(savedUser.getRole())
+                    .build();
+        }
     }
 
     @Override
