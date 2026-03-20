@@ -1,6 +1,7 @@
 package edu.icet.shopsphere.service.impl;
 
 import edu.icet.shopsphere.dto.LoginRequest;
+import edu.icet.shopsphere.dto.LoginResponse;
 import edu.icet.shopsphere.dto.RegisterRequest;
 import edu.icet.shopsphere.dto.UserResponse;
 import edu.icet.shopsphere.entity.Role;
@@ -8,6 +9,7 @@ import edu.icet.shopsphere.entity.User;
 import edu.icet.shopsphere.exception.EmailAlreadyExistsException;
 import edu.icet.shopsphere.repository.UserRepository;
 import edu.icet.shopsphere.service.AuthService;
+import edu.icet.shopsphere.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Override
     public UserResponse register(RegisterRequest request) {
@@ -44,13 +47,17 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + request.getEmail()));
 
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Password is incorrect");
         }
-        return "Login successful for user: " + user.getEmail();
+
+        String token = jwtService.generateToken(user);
+        return LoginResponse.builder()
+                .token(token)
+                .build();
     }
 }

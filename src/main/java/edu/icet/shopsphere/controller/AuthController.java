@@ -1,6 +1,7 @@
 package edu.icet.shopsphere.controller;
 
 import edu.icet.shopsphere.dto.LoginRequest;
+import edu.icet.shopsphere.dto.LoginResponse;
 import edu.icet.shopsphere.dto.RegisterRequest;
 import edu.icet.shopsphere.dto.UserResponse;
 import edu.icet.shopsphere.service.AuthService;
@@ -23,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public LoginResponse login(@RequestBody LoginRequest request) {
         return authService.login(request);
     }
 }
