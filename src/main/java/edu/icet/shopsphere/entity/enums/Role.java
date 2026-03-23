@@ -1,4 +1,4 @@
-package edu.icet.shopsphere.entity;
+package edu.icet.shopsphere.entity.enums;
 
 public enum Role {
     CUSTOMER,

@@ -4,7 +4,7 @@ import edu.icet.shopsphere.dto.LoginRequest;
 import edu.icet.shopsphere.dto.LoginResponse;
 import edu.icet.shopsphere.dto.RegisterRequest;
 import edu.icet.shopsphere.dto.UserResponse;
-import edu.icet.shopsphere.entity.Role;
+import edu.icet.shopsphere.entity.enums.Role;
 import edu.icet.shopsphere.entity.User;
 import edu.icet.shopsphere.exception.EmailAlreadyExistsException;
 import edu.icet.shopsphere.repository.UserRepository;
@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
                     .lastName(request.getLastName())
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword())) // Hash the password before saving
-                    .role(Role.ADMIN)
+                    .role(Role.CUSTOMER)
                     .build();
 
             User savedUser = userRepository.save(user);
