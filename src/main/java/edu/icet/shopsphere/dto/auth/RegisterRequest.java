@@ -1,6 +1,5 @@
-package edu.icet.shopsphere.dto;
+package edu.icet.shopsphere.dto.auth;
 
-import edu.icet.shopsphere.entity.enums.Role;
 import lombok.*;
 
 @Getter
@@ -8,10 +7,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserResponse {
-    private Long id;
+public class RegisterRequest {
     private String firstName;
     private String lastName;
     private String email;
-    private Role role;
+    private String password;
 }

@@ -1,6 +1,6 @@
 package edu.icet.shopsphere.controller;
 
-import edu.icet.shopsphere.dto.UserResponse;
+import edu.icet.shopsphere.dto.user.UserResponse;
 import edu.icet.shopsphere.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

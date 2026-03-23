@@ -1,9 +1,9 @@
 package edu.icet.shopsphere.controller;
 
-import edu.icet.shopsphere.dto.LoginRequest;
-import edu.icet.shopsphere.dto.LoginResponse;
-import edu.icet.shopsphere.dto.RegisterRequest;
-import edu.icet.shopsphere.dto.UserResponse;
+import edu.icet.shopsphere.dto.auth.LoginRequest;
+import edu.icet.shopsphere.dto.auth.LoginResponse;
+import edu.icet.shopsphere.dto.auth.RegisterRequest;
+import edu.icet.shopsphere.dto.user.UserResponse;
 import edu.icet.shopsphere.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

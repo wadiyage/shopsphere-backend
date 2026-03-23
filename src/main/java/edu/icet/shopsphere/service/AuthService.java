@@ -1,9 +1,9 @@
 package edu.icet.shopsphere.service;
 
-import edu.icet.shopsphere.dto.LoginRequest;
-import edu.icet.shopsphere.dto.LoginResponse;
-import edu.icet.shopsphere.dto.RegisterRequest;
-import edu.icet.shopsphere.dto.UserResponse;
+import edu.icet.shopsphere.dto.auth.LoginRequest;
+import edu.icet.shopsphere.dto.auth.LoginResponse;
+import edu.icet.shopsphere.dto.auth.RegisterRequest;
+import edu.icet.shopsphere.dto.user.UserResponse;
 
 public interface AuthService {
     UserResponse register(RegisterRequest request);
