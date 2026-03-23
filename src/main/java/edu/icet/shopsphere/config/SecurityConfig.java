@@ -32,6 +32,8 @@ public class SecurityConfig {
             ) // use stateless sessions (no HTTP session)
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/auth/**").permitAll() // allow unauthenticated access to auth endpoints
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN") // restrict admin endpoints to users with ADMIN role
+                    .requestMatchers("/api/user/**").hasAnyRole("CUSTOMER", "ADMIN") // allow user endpoints for CUSTOMER and ADMIN roles
                     .anyRequest().authenticated() // require authentication for all other endpoints
             )
             .exceptionHandling(exception -> exception

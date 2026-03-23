@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
                     .lastName(request.getLastName())
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword())) // Hash the password before saving
-                    .role(Role.CUSTOMER)
+                    .role(Role.ADMIN)
                     .build();
 
             User savedUser = userRepository.save(user);
