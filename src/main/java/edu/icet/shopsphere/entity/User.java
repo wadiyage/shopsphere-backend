@@ -1,5 +1,6 @@
 package edu.icet.shopsphere.entity;
 
+import edu.icet.shopsphere.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,6 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
-
 
     private String password;
 

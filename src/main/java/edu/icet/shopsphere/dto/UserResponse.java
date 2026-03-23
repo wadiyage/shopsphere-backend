@@ -1,6 +1,6 @@
 package edu.icet.shopsphere.dto;
 
-import edu.icet.shopsphere.entity.Role;
+import edu.icet.shopsphere.entity.enums.Role;
 import lombok.*;
 
 @Getter
