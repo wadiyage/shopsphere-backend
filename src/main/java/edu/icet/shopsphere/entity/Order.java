@@ -1,10 +1,19 @@
 package edu.icet.shopsphere.entity;
 
+import edu.icet.shopsphere.entity.enums.OrderStatus;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Builder
+@Table
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +26,7 @@ public class Order {
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
-    private String status;
+    private OrderStatus status;
 
     private LocalDateTime createdAt;
 

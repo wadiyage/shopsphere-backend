@@ -1,12 +1,12 @@
 package edu.icet.shopsphere.controller;
 
-import edu.icet.shopsphere.dto.UserResponse;
+import edu.icet.shopsphere.dto.product.ProductRequest;
+import edu.icet.shopsphere.dto.product.ProductResponse;
+import edu.icet.shopsphere.dto.user.UserResponse;
 import edu.icet.shopsphere.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin")

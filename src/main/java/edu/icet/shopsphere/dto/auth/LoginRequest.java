@@ -1,4 +1,4 @@
-package edu.icet.shopsphere.dto;
+package edu.icet.shopsphere.dto.auth;
 
 import lombok.*;
 
