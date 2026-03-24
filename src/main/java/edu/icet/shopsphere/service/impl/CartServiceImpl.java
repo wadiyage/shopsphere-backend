@@ -5,6 +5,8 @@ import edu.icet.shopsphere.dto.cart.CartResponse;
 import edu.icet.shopsphere.entity.CartItem;
 import edu.icet.shopsphere.entity.Product;
 import edu.icet.shopsphere.entity.User;
+import edu.icet.shopsphere.exception.ResourceNotFoundException;
+import edu.icet.shopsphere.exception.UnauthorizedException;
 import edu.icet.shopsphere.repository.CartItemRepository;
 import edu.icet.shopsphere.repository.ProductRepository;
 import edu.icet.shopsphere.service.CartService;
@@ -28,7 +30,7 @@ public class CartServiceImpl implements CartService {
         User user = (User) auth.getPrincipal();
 
         Product product = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + request.getProductId()));
 
         CartItem exiting = cartItemRepository.findByUserAndProduct(user, product);
         if(exiting != null) {
@@ -73,10 +75,10 @@ public class CartServiceImpl implements CartService {
         User user = (User) auth.getPrincipal();
 
         CartItem cartItem = cartItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cart item not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cart item not found with id: " + id));
 
         if(!cartItem.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Unauthorized to update this cart item");
+            throw new UnauthorizedException("Unauthorized to update this cart item");
         }
 
         cartItem.setQuantity(request.getQuantity());
@@ -91,10 +93,10 @@ public class CartServiceImpl implements CartService {
         User user = (User) auth.getPrincipal();
 
         CartItem cartItem = cartItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cart item not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cart item not found with id: " + id));
 
         if(!cartItem.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Unauthorized to delete this cart item");
+            throw new UnauthorizedException("Unauthorized to delete this cart item");
         }
 
         cartItemRepository.delete(cartItem);

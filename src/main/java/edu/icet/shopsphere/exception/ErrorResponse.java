@@ -2,6 +2,7 @@ package edu.icet.shopsphere.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ErrorResponse {
     private LocalDateTime timestamp;
-    private int status;
+    private HttpStatus status;
     private String message;
 }
