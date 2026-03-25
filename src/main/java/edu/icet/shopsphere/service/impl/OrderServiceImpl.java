@@ -8,6 +8,7 @@ import edu.icet.shopsphere.entity.Order;
 import edu.icet.shopsphere.entity.OrderItem;
 import edu.icet.shopsphere.entity.User;
 import edu.icet.shopsphere.entity.enums.OrderStatus;
+import edu.icet.shopsphere.exception.InvalidRequestException;
 import edu.icet.shopsphere.exception.ResourceNotFoundException;
 import edu.icet.shopsphere.exception.UnauthorizedException;
 import edu.icet.shopsphere.repository.CartItemRepository;
@@ -35,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
         User user = (User) auth.getPrincipal();
 
         if (request.getCartItemIds() == null || request.getCartItemIds().isEmpty()) {
-            throw new RuntimeException("Cart item ids cannot be null or empty");
+            throw new InvalidRequestException("Cart item ids cannot be null or empty");
         } else {
             List<CartItem> cartItems = request.getCartItemIds().stream()
                     .map(id -> cartItemRepository.findById(id)
