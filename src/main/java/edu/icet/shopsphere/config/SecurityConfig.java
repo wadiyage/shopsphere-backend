@@ -31,12 +31,15 @@ public class SecurityConfig {
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             ) // use stateless sessions (no HTTP session)
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/**").permitAll() // allow unauthenticated access to auth endpoints
-                    .requestMatchers("/api/products/**").permitAll() // allow unauthenticated access to product endpoints
+                    // Public APIs
+                    .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/api/products/**").permitAll()
+
+                    // Admin APIs
                     .requestMatchers("/api/admin/**").hasRole("ADMIN") // restrict admin endpoints to users with ADMIN role
-                    .requestMatchers("/api/user/cart/**").hasRole("CUSTOMER") // restrict cart endpoints to users with CUSTOMER role
-                    .requestMatchers("/api/user/orders/**").hasRole("CUSTOMER") // restrict order endpoints to users with CUSTOMER role
-                    .requestMatchers("/api/user/**").hasAnyRole("CUSTOMER", "ADMIN") // allow user endpoints for CUSTOMER and ADMIN roles
+
+                    // Customer APIs
+                    .requestMatchers("/api/user/**").hasRole("CUSTOMER")
 
                     .anyRequest().authenticated() // require authentication for all other endpoints
             )
