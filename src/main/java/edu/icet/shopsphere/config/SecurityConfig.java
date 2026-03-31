@@ -35,6 +35,9 @@ public class SecurityConfig {
                     // Public APIs
                     .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/api/products/**").permitAll()
+                    .requestMatchers("/products/**").permitAll()
+                    .requestMatchers("/api/categories/**").permitAll()
+                    .requestMatchers("/categories/**").permitAll()
 
                     // Admin APIs
                     .requestMatchers("/api/admin/**").hasRole("ADMIN") // restrict admin endpoints to users with ADMIN role
