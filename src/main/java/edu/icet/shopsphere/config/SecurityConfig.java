@@ -44,6 +44,7 @@ public class SecurityConfig {
 
                     // Customer APIs
                     .requestMatchers("/api/user/**").hasRole("CUSTOMER")
+                    .requestMatchers("/api/user/checkout/**").hasRole("CUSTOMER")
 
                     .anyRequest().authenticated() // require authentication for all other endpoints
             )

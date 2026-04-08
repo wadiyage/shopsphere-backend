@@ -52,11 +52,21 @@ public class CartServiceImpl implements CartService {
     private CartResponse mapToResponse(CartItem cartItem) {
         return CartResponse.builder()
                 .id(cartItem.getId())
+
                 .productId(cartItem.getProduct().getId())
                 .productName(cartItem.getProduct().getName())
+                .productDescription(cartItem.getProduct().getDescription())
+
                 .productPrice(cartItem.getProduct().getPrice())
+                .imageUrl(cartItem.getProduct().getImageUrl())
+
+                .categoryName(cartItem.getProduct().getCategory().getName())
+
                 .quantity(cartItem.getQuantity())
                 .totalPrice(cartItem.getProduct().getPrice() * cartItem.getQuantity())
+
+                .stockQuantity(cartItem.getProduct().getStockQuantity())
+                .inStock(cartItem.getProduct().getStockQuantity() > 0)
                 .build();
     }
 
