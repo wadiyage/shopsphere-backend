@@ -1,6 +1,7 @@
 package edu.icet.shopsphere.dto.order;
 
 import edu.icet.shopsphere.entity.enums.OrderStatus;
+import edu.icet.shopsphere.entity.enums.PaymentMethod;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,4 +18,6 @@ public class OrderResponse {
     private OrderStatus status;
     private LocalDateTime createdAt;
     private List<OrderItemResponse> items;
+    private String shippingAddress;
+    private PaymentMethod paymentMethod;
 }
