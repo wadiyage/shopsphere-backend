@@ -9,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class CheckoutRequest {
-    private String shippingAddress;
+    private Long addressId;
     private PaymentMethod paymentMethod;
 }

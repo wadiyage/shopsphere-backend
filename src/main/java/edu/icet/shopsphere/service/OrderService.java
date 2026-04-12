@@ -7,5 +7,5 @@ import java.util.List;
 public interface OrderService {
     List<OrderResponse> getMyOrders();
     OrderResponse getOrderById(Long id);
-//    void cancelOrder(Long id);
+    void cancelOrder(Long id);
 }

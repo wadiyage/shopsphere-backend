@@ -1,9 +1,11 @@
 package edu.icet.shopsphere.service.impl;
 
+import edu.icet.shopsphere.dto.address.AddressResponse;
 import edu.icet.shopsphere.dto.order.OrderItemResponse;
 import edu.icet.shopsphere.dto.order.OrderResponse;
 import edu.icet.shopsphere.entity.Order;
 import edu.icet.shopsphere.entity.User;
+import edu.icet.shopsphere.entity.enums.OrderStatus;
 import edu.icet.shopsphere.exception.ResourceNotFoundException;
 import edu.icet.shopsphere.exception.UnauthorizedException;
 import edu.icet.shopsphere.repository.CartItemRepository;
@@ -34,17 +36,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderResponse mapToResponse(Order order) {
+        List<OrderItemResponse> items = order.getOrderItems().stream().map(
+                oi -> OrderItemResponse.builder()
+                .productId(oi.getProduct().getId())
+                .productName(oi.getProduct().getName())
+                .quantity(oi.getQuantity())
+                .price(oi.getPrice())
+                .build()
+        ).toList();
         return OrderResponse.builder()
                 .id(order.getId())
+                .address(AddressResponse.builder()
+                        .id(order.getAddress().getId())
+                        .fullName(order.getAddress().getFullName())
+                        .phone(order.getAddress().getPhone())
+                        .addressLine(order.getAddress().getAddressLine())
+                        .city(order.getAddress().getCity())
+                        .state(order.getAddress().getState())
+                        .postalCode(order.getAddress().getPostalCode())
+                        .build()
+                )
                 .totalAmount(order.getTotalAmount())
                 .status(order.getStatus())
                 .createdAt(order.getCreatedAt())
-                .items(order.getOrderItems().stream().map(oi -> OrderItemResponse.builder()
-                        .productId(oi.getProduct().getId())
-                        .productName(oi.getProduct().getName())
-                        .quantity(oi.getQuantity())
-                        .price(oi.getPrice())
-                        .build()).toList())
+                .items(items)
                 .build();
     }
 
@@ -63,19 +78,19 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-//    @Override
-//    public void cancelOrder(Long id) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) auth.getPrincipal();
-//
-//        Order order = orderRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
-//
-//        if(!order.getUser().getId().equals(user.getId())) {
-//            throw new UnauthorizedException("Unauthorized to cancel this order");
-//        } else {
-//            order.setStatus(OrderStatus.CANCELLED);
-//            orderRepository.save(order);
-//        }
-//    }
+    @Override
+    public void cancelOrder(Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
+
+        if(!order.getUser().getId().equals(user.getId())) {
+            throw new UnauthorizedException("Unauthorized to cancel this order");
+        } else {
+            order.setStatus(OrderStatus.CANCELLED);
+            orderRepository.save(order);
+        }
+    }
 }
