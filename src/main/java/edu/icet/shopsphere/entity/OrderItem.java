@@ -25,5 +25,5 @@ public class OrderItem {
 
     private Integer quantity;
 
-    private Double price; // Price at the time of order
+    private Double price;
 }

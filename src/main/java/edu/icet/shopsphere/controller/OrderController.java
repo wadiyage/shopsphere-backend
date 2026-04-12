@@ -24,8 +24,8 @@ public class OrderController {
         return orderService.getOrderById(id);
     }
 
-//    @DeleteMapping("/{id}")
-//    public void cancelOrder(@PathVariable Long id) {
-//        orderService.cancelOrder(id);
-//    }
+    @DeleteMapping("/{id}")
+    public void cancelOrder(@PathVariable Long id) {
+        orderService.cancelOrder(id);
+    }
 }
